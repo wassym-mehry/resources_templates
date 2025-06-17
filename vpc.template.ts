@@ -117,7 +117,7 @@ resource "aws_internet_gateway" "{{name}}" {
   vpc_id = aws_vpc.{{name}}.id
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-igw"
+    Name = "${var.name}-igw"
   })
 }
 
@@ -130,7 +130,7 @@ resource "aws_subnet" "{{name}}_public" {
   map_public_ip_on_launch = true
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-public-\${var.azs[count.index]}"
+    Name = "${var.name}-public-${var.azs[count.index]}"
     Type = "Public"
   })
 }
@@ -142,7 +142,7 @@ resource "aws_subnet" "{{name}}_private" {
   availability_zone = var.azs[count.index]
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-private-\${var.azs[count.index]}"
+    Name = "${var.name}-private-${var.azs[count.index]}"
     Type = "Private"
   })
 }
@@ -156,7 +156,7 @@ resource "aws_route_table" "{{name}}_public" {
   }
 
   tags = merge(var.tags, {
-    Name = "\${var.name}-public-rt"
+    Name = "${var.name}-public-rt"
   })
 }
 
