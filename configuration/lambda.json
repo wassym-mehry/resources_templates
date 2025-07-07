@@ -8,7 +8,7 @@
     "memory_size": 128,
     "environment_variables": {}
   },
-  "requiredParams": ["name", "filename", "role"],
+  "requiredParams": [],
   "outputMappings": {
     "function_name": "function_name",
     "function_arn": "function_arn",
