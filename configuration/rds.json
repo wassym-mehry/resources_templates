@@ -1,0 +1,31 @@
+{
+  "type": "rds",
+  "name": "Relational Database Service",
+  "default_params": {
+    "engine": "mysql",
+    "engine_version": "8.0",
+    "instance_class": "db.t3.micro",
+    "allocated_storage": 20,
+    "storage_type": "gp2",
+    "storage_encrypted": true,
+    "multi_az": false,
+    "publicly_accessible": false,
+    "backup_retention_period": 7,
+    "backup_window": "03:00-04:00",
+    "maintenance_window": "sun:04:00-sun:05:00",
+    "auto_minor_version_upgrade": true,
+    "deletion_protection": false,
+    "skip_final_snapshot": true,
+    "db_name": "mydb",
+    "username": "admin",
+    "manage_master_user_password": true
+  },
+  "required_params": [],
+  "output_mappings": {
+    "db_instance_id": "db_instance_id",
+    "db_instance_endpoint": "db_instance_endpoint",
+    "db_instance_port": "db_instance_port",
+    "db_instance_arn": "db_instance_arn"
+  },
+  "dependencies": []
+}
