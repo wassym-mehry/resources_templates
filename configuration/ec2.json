@@ -1,0 +1,18 @@
+{
+  "type": "ec2",
+  "name": "Elastic Compute Cloud",
+  "default_params": {
+    "instance_type": "t2.micro",
+    "ami": "ami-0c55b159cbfafe1f0",
+    "key_name": "",
+    "security_groups": [],
+    "user_data": ""
+  },
+  "required_params": [],
+  "output_mappings": {
+    "instance_id": "instance_id",
+    "public_ip": "public_ip",
+    "private_ip": "private_ip"
+  },
+  "dependencies": []
+}
