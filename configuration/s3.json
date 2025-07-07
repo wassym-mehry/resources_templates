@@ -1,6 +1,18 @@
---type "s3" \
---name "Simple Storage Service" \
---default-params '{"acl": "private", "versioning": true, "encryption": true, "public_read": false}' \
---required-params "name" \
---output-mappings '{"bucket_id": "bucket_id", "bucket_arn": "bucket_arn", "bucket_domain_name": "bucket_domain_name"}' \
---dependencies ""
+{
+  "type": "s3",
+  "name": "Simple Storage Service",
+  "defaultParams": {
+    "acl": "private",
+    "versioning": true,
+    "encryption": true,
+    "public_read": false
+  
+  },
+  "requiredParams": [],
+  "outputMappings": {
+    "bucket_id": "bucket_id",
+    "bucket_arn": "bucket_arn",
+    "bucket_domain_name": "bucket_domain_name"
+  },
+  "dependencies": []
+}
