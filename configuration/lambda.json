@@ -1,4 +1,5 @@
 {
+  "type": "lambda",
   "name": "AWS Lambda Function",
   "defaultParams": {
     "runtime": "python3.9",
