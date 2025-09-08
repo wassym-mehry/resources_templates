@@ -1,3 +1,4 @@
+export const subnetTemplate = `
 /* PROVIDER_TF_START */
 terraform {
   required_providers {
@@ -69,7 +70,7 @@ output "{{name}}_availability_zone" {
 /* OUTPUTS_TF_END */
 
 /* MODULE_SUBNET_START */
-resource "aws_subnet" "{{name}}" {
+resource "aws_subnet" "this" {
   vpc_id            = var.vpc_id
   cidr_block        = var.cidr_block
   availability_zone = var.availability_zone
@@ -107,11 +108,12 @@ variable "tags" {
 
 output "subnet_id" {
   description = "Subnet ID"
-  value       = aws_subnet.{{name}}.id
+  value       = aws_subnet.this.id
 }
 
 output "availability_zone" {
   description = "Availability zone of the subnet"
-  value       = aws_subnet.{{name}}.availability_zone
+  value       = aws_subnet.this.availability_zone
 }
 /* MODULE_SUBNET_END */
+`
