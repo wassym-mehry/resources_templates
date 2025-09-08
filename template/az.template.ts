@@ -30,7 +30,7 @@ variable "{{name}}_state" {
 
 /* LOCALS_TF_START */
 locals {
-  az_name = "{{name}}-az"
+  {{name}}_az_name = "{{name}}-az"
 }
 /* LOCALS_TF_END */
 
@@ -43,7 +43,7 @@ module "{{name}}" {
   state      = var.{{name}}_state
 
   tags = {
-    Name        = local.az_name
+    Name        = local.{{name}}_az_name
     Environment = "{{environment}}"
     Terraform   = "true"
   }
