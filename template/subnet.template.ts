@@ -36,7 +36,7 @@ variable "{{name}}_availability_zone" {
 
 /* LOCALS_TF_START */
 locals {
-  subnet_name = "{{name}}-subnet"
+  {{name}}_subnet_name = "{{name}}-subnet"
 }
 /* LOCALS_TF_END */
 
@@ -50,7 +50,7 @@ module "{{name}}" {
   availability_zone = var.{{name}}_availability_zone
 
   tags = {
-    Name        = local.subnet_name
+    Name        = local.{{name}}_subnet_name
     Environment = "{{environment}}"
     Terraform   = "true"
   }
