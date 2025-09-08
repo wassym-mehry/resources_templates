@@ -1,3 +1,4 @@
+export const availabilityZoneTemplate = `
 /* PROVIDER_TF_START */
 terraform {
   required_providers {
@@ -62,7 +63,7 @@ output "{{name}}_selected_az" {
 /* OUTPUTS_TF_END */
 
 /* MODULE_AVAILABILITY_ZONE_START */
-data "aws_availability_zones" "{{name}}" {
+data "aws_availability_zones" "this" {
   state = var.state
 
   filter {
@@ -95,11 +96,12 @@ variable "tags" {
 
 output "availability_zones" {
   description = "List of availability zones"
-  value       = data.aws_availability_zones.{{name}}.names
+  value       = data.aws_availability_zones.this.names
 }
 
 output "selected_az" {
   description = "Selected availability zone"
-  value       = length(data.aws_availability_zones.{{name}}.names) > 0 ? data.aws_availability_zones.{{name}}.names[0] : ""
+  value       = length(data.aws_availability_zones.this.names) > 0 ? data.aws_availability_zones.this.names[0] : ""
 }
 /* MODULE_AVAILABILITY_ZONE_END */
+`
