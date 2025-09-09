@@ -51,31 +51,19 @@ locals {
 /* MAIN_TF_START */
 module "{{name}}" {
   source = "./modules/subnet"
-
+  
   name              = "{{name}}"
-{{#unless vpc_id_variable}}
-  vpc_id            = {{{vpc_id}}}  {{!-- Use module reference directly --}}
-{{else}}
-  vpc_id            = var.{{name}}_vpc_id
-{{/unless}}
-  cidr_block        = var.{{name}}_cidr_block
-{{#unless availability_zone_variable}}
-  availability_zone = "{{availability_zone}}"  {{!-- Use computed AZ directly --}}
-{{else}}
-  availability_zone = var.{{name}}_availability_zone
-{{/unless}}
-
+  vpc_id            = {{{vpc_id}}}
+  cidr_block        = "{{cidr_block}}"
+  availability_zone = "{{availability_zone}}"
+  
   tags = {
-    Name        = local.{{name}}_subnet_name
+    Name        = "{{name}}-subnet"
     Environment = "{{environment}}"
     Terraform   = "true"
   }
   
-  {{#if vpc_id_variable}}
-  {{else}}
-  # Ensure subnet is created after VPC
-  depends_on = [{{#if vpc_module_name}}{{vpc_module_name}}{{else}}module.vpc1{{/if}}]
-  {{/if}}
+  depends_on = [{{#if vpc_module_name}}module.{{vpc_module_name}}{{/if}}]
 }
 /* MAIN_TF_END */
 
