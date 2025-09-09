@@ -15,11 +15,15 @@ provider "aws" {
 /* PROVIDER_TF_END */
 
 /* VARIABLES_TF_START */
+{{#unless vpc_id_variable}}
+{{!-- Don't create vpc_id variable when using module reference --}}
+{{else}}
 variable "{{name}}_vpc_id" {
   description = "VPC ID for the subnet"
   type        = string
   default     = "{{vpc_id}}"
 }
+{{/unless}}
 
 variable "{{name}}_cidr_block" {
   description = "CIDR block for the subnet"
@@ -27,11 +31,15 @@ variable "{{name}}_cidr_block" {
   default     = "{{cidr_block}}"
 }
 
+{{#unless availability_zone_variable}}
+{{!-- Don't create AZ variable when using computed value --}}
+{{else}}
 variable "{{name}}_availability_zone" {
   description = "Availability zone for the subnet"
   type        = string
   default     = "{{availability_zone}}"
 }
+{{/unless}}
 /* VARIABLES_TF_END */
 
 /* LOCALS_TF_START */
@@ -45,15 +53,29 @@ module "{{name}}" {
   source = "./modules/subnet"
 
   name              = "{{name}}"
+{{#unless vpc_id_variable}}
+  vpc_id            = {{{vpc_id}}}  {{!-- Use module reference directly --}}
+{{else}}
   vpc_id            = var.{{name}}_vpc_id
+{{/unless}}
   cidr_block        = var.{{name}}_cidr_block
+{{#unless availability_zone_variable}}
+  availability_zone = "{{availability_zone}}"  {{!-- Use computed AZ directly --}}
+{{else}}
   availability_zone = var.{{name}}_availability_zone
+{{/unless}}
 
   tags = {
     Name        = local.{{name}}_subnet_name
     Environment = "{{environment}}"
     Terraform   = "true"
   }
+  
+  {{#if vpc_id_variable}}
+  {{else}}
+  # Ensure subnet is created after VPC
+  depends_on = [{{#if vpc_module_name}}{{vpc_module_name}}{{else}}module.vpc1{{/if}}]
+  {{/if}}
 }
 /* MAIN_TF_END */
 
