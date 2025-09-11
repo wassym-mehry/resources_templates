@@ -15,11 +15,7 @@ provider "aws" {
 /* PROVIDER_TF_END */
 
 /* VARIABLES_TF_START */
-variable "{{name}}_cidr_block" {
-  description = "CIDR block for VPC"
-  type        = string
-  default     = "{{cidr_block}}"
-}
+
 
 variable "{{name}}_enable_dns_hostnames" {
   description = "Enable DNS hostnames"
