@@ -1,18 +1,40 @@
 {
-  "type": "lambda",
   "name": "AWS Lambda Function",
+  "description": "Serverless function for compute workloads",
+  "category": "Compute",
   "defaultParams": {
     "runtime": "python3.9",
     "handler": "index.handler",
     "timeout": 30,
     "memory_size": 128,
-    "environment_variables": {}
+    "environment_variables": {},
+    "publish": false,
+    "tags": {
+      "Environment": "dev",
+      "ManagedBy": "terraform"
+    }
   },
-  "requiredParams": [],
+  "requiredParams": ["name", "filename", "role"],
+  "optionalParams": ["runtime", "handler", "timeout", "memory_size", "environment_variables"],
+  "validation": {
+    "allowedValues": {
+      "runtime": ["python3.9", "python3.8", "nodejs18.x", "nodejs16.x", "java11", "dotnet6"],
+      "timeout": [30, 60, 120, 300, 900]
+    },
+    "rules": {
+      "memory_size": {
+        "min": 128,
+        "max": 10240,
+        "step": 64
+      }
+    }
+  },
   "outputMappings": {
     "function_name": "function_name",
-    "function_arn": "function_arn",
-    "invoke_arn": "invoke_arn"
+    "function_arn": "arn",
+    "invoke_arn": "invoke_arn",
+    "qualified_arn": "qualified_arn"
   },
-  "dependencies": []
+  "dependencies": ["iam"],
+  "tags": ["serverless", "compute", "aws"]
 }
