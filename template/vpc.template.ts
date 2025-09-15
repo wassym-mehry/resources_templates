@@ -62,6 +62,18 @@ variable "{{name}}_environment" {
 module "{{name}}" {
   source          = "./modules/vpc"
   name            = "{{name}}"
+  vpc_cidr        = var.{{name}}_cidr_block
+  public_subnets  = var.{{name}}_public_subnets
+  private_subnets = var.{{name}}_private_subnets
+  azs             = var.{{name}}_azs
+  enable_dns_hostnames = var.{{name}}_enable_dns_hostnames
+  enable_dns_support   = var.{{name}}_enable_dns_support
+  
+  tags = {
+    Name        = "{{name}}"
+    Environment = var.{{name}}_environment
+    Terraform   = "true"
+  }
 
 }
 /* MAIN_TF_END */
